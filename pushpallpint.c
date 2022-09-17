@@ -12,7 +12,7 @@ void push(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	tmp = malloc(sizeof(stack_t)); /* not freed */
 	if (tmp == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit_free(*stack);
 		exit(EXIT_FAILURE);
 	}
@@ -36,12 +36,12 @@ void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = *stack;
 
-	(void) line_number;
 	while (tmp != NULL)
 	{
 		printf("%d\n", tmp->n);
-		tmp = tmp->next;
+		tmp = tmp->prev;
 	}
+	(void)line_number;
 }
 /**
  * pint - print top int
@@ -55,9 +55,10 @@ void pint(stack_t **stack, unsigned int line_number)
 
 	if (tmp == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit_free(*stack);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", tmp->n);
 }
+
